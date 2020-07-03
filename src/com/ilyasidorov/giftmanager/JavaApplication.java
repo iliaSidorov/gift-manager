@@ -17,7 +17,7 @@ public class JavaApplication {
         Brownie brownie2 = new Brownie("The Spirit Of Melany", 0.1, 1.20, "white");
         Tiramisu tiramisu1 = new Tiramisu("The Light That Failed", 0.3, 2.10, 1);
         Cake cake1 = new Cake("The Fat Joe", 1, 5.45, false);
-        Cake cake2 = new Cake("The Tiny Piggy", 0.25, 3.08, true);
+        Cake cake2 = new Cake("The Tiny Piggy", 0.4, 3.08, true);
 
         //create new box for a gift
         Box maryGift = new Box("Gift for Mary");
@@ -43,9 +43,11 @@ public class JavaApplication {
         //remove a sweet from the box
         boxService.removeSweet(maryGift, tiramisu1);
 
+        //limit the weight
+        boxService.reduceBoxWeight(maryGift, 1.7);
 
-
-
+        //limit the price
+        boxService.reduceBoxPrice(maryGift, 10);
 
     }
 }

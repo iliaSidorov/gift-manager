@@ -13,7 +13,8 @@ public interface BoxRepository {
     void removeSweet(Box box, Sweet sweet);
     double getBoxWeight(Box box);
     double getBoxPrice(Box box);
-    void reduceBoxWeight(double weight);
+    void reduceBoxWeight(Box box, double limitWeight);
+    void reduceBoxPrice(Box box, double limitPrice);
 
     //display
     void displayAllSweets(Box box);

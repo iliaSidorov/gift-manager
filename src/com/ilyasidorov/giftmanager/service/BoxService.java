@@ -4,7 +4,7 @@ import com.ilyasidorov.giftmanager.model.Box;
 import com.ilyasidorov.giftmanager.model.sweets.Sweet;
 import com.ilyasidorov.giftmanager.repository.BoxRepository;
 
-import java.sql.SQLOutput;
+import java.util.Comparator;
 import java.util.List;
 
 public class BoxService implements BoxRepository {
@@ -40,8 +40,45 @@ public class BoxService implements BoxRepository {
     }
 
     @Override
-    public void reduceBoxWeight(double weight) {
+    public void reduceBoxWeight(Box box, double limitWeight) {
+            List<Sweet> allSweets = box.getSweets();
+            double boxWeight = getBoxWeight(box);
 
+            while (limitWeight < boxWeight) {
+                Sweet sweetWithMinWeight = allSweets.stream()
+                        .sorted(Comparator.comparing(Sweet::getWeight))
+                        .findFirst()
+                        .get();
+                boxWeight = boxWeight - sweetWithMinWeight.getWeight();
+                allSweets.remove(sweetWithMinWeight);
+            }
+
+            System.out.println("The weight of the box was reduced to " + boxWeight);
+            System.out.println("The remaining sweets in the box: ");
+            for (Sweet sweet : allSweets) {
+                System.out.println(sweet);
+            }
+    }
+
+    @Override
+    public void reduceBoxPrice(Box box, double limitPrice) {
+        List<Sweet> allSweets = box.getSweets();
+        double boxPrice = getBoxPrice(box);
+
+            while (limitPrice < boxPrice) {
+                Sweet sweetWithMinPrice = allSweets.stream()
+                        .sorted(Comparator.comparing(Sweet::getPrice))
+                        .findFirst()
+                        .get();
+                boxPrice = boxPrice - sweetWithMinPrice.getPrice();
+                allSweets.remove(sweetWithMinPrice);
+            }
+
+        System.out.println("The price of the box was reduced to " + boxPrice);
+        System.out.println("The remaining sweets in the box: ");
+        for (Sweet sweet : allSweets) {
+            System.out.println(sweet);
+        }
     }
 
     //display methods
